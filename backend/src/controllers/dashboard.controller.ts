@@ -7,13 +7,12 @@ import { aiService } from '../services/ai.service.js';
 import { socketService } from '../websocket/socket.service.js';
 
 export const getDashboardStats = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const now = new Date();
   const last24h = new Date(now.getTime() - 24 * 60 * 60 * 1000);
   const last7d = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-  const last30d = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
 
   const [
     totalCustomers,
@@ -309,7 +308,7 @@ export const getAuditLogs = asyncHandler(async (
 });
 
 export const getSystemHealth = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const startTime = Date.now();

@@ -228,7 +228,7 @@ export const deleteTemplate = asyncHandler(async (
 });
 
 export const getSystemPrompts = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const prompts = await prisma.systemPrompt.findMany({

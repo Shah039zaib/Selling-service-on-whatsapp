@@ -285,7 +285,7 @@ export const unblockCustomer = asyncHandler(async (
 });
 
 export const getCustomerStats = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const [

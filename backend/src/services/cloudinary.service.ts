@@ -1,4 +1,4 @@
-import { v2 as cloudinary, UploadApiResponse } from 'cloudinary';
+import { v2 as cloudinary } from 'cloudinary';
 import { Readable } from 'stream';
 import { env } from '../config/env.js';
 import { logger } from '../utils/logger.js';
@@ -152,10 +152,8 @@ export class CloudinaryService {
 
   async getSignedUrl(
     publicId: string,
-    expiresInSeconds: number = 3600
+    _expiresInSeconds: number = 3600
   ): Promise<string> {
-    const timestamp = Math.round(Date.now() / 1000) + expiresInSeconds;
-
     return cloudinary.url(publicId, {
       secure: true,
       sign_url: true,

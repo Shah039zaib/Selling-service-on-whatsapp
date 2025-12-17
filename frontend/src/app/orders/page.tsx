@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { EyeIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import toast from 'react-hot-toast';
@@ -31,7 +31,7 @@ const statusOptions = [
   { value: 'REFUNDED', label: 'Refunded' },
 ];
 
-export default function OrdersPage() {
+function OrdersPageContent() {
   const searchParams = useSearchParams();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -304,5 +304,13 @@ export default function OrdersPage() {
         )}
       </Modal>
     </DashboardLayout>
+  );
+}
+
+export default function OrdersPage() {
+  return (
+    <Suspense fallback={<DashboardLayout><Loading className="py-20" /></DashboardLayout>}>
+      <OrdersPageContent />
+    </Suspense>
   );
 }

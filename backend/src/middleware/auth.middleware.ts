@@ -106,7 +106,7 @@ export function generateToken(user: { id: string; email: string; role: string })
       role: user.role,
     },
     env.JWT_SECRET,
-    { expiresIn: env.JWT_EXPIRES_IN }
+    { expiresIn: env.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'] }
   );
 }
 

@@ -56,7 +56,7 @@ export function errorHandler(
   err: Error,
   req: Request,
   res: Response<APIResponse>,
-  next: NextFunction
+  _next: NextFunction
 ): void {
   logger.error({
     error: {

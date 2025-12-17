@@ -19,7 +19,7 @@ export const createProviderSchema = z.object({
 export const updateProviderSchema = createProviderSchema.omit({ type: true }).partial();
 
 export const getProviders = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const providers = await prisma.aIProvider.findMany({
