@@ -168,7 +168,7 @@ export const updateOrderStatus = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { status, adminNotes } = req.body as z.infer<typeof updateOrderStatusSchema>;
 
   const existing = await prisma.order.findUnique({
@@ -206,7 +206,7 @@ export const updateOrderStatus = asyncHandler(async (
   await conversationService.updateOrderStatus(
     id,
     status as OrderStatus,
-    req.user?.id,
+    req.user?.id ?? '',
     adminNotes
   );
 
@@ -242,7 +242,7 @@ export const updateOrderStatus = asyncHandler(async (
 });
 
 export const getOrderStats = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const [

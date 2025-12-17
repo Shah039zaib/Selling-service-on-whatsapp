@@ -113,7 +113,7 @@ export class WhatsAppService extends EventEmitter {
       syncFullHistory: false,
       markOnlineOnConnect: true,
       generateHighQualityLinkPreview: false,
-      getMessage: async (key) => {
+      getMessage: async (_key) => {
         return { conversation: '' };
       },
     });
@@ -463,7 +463,7 @@ export class WhatsAppService extends EventEmitter {
 
       log.info({ to, messageId: result?.key?.id }, 'Message sent');
 
-      return result;
+      return result ?? null;
     } catch (error) {
       log.error({ error, to }, 'Failed to send message');
       throw error;
@@ -521,7 +521,9 @@ export class WhatsAppService extends EventEmitter {
 
     try {
       if (instance.socket) {
-        instance.socket.ev.removeAllListeners();
+        instance.socket.ev.removeAllListeners('connection.update');
+        instance.socket.ev.removeAllListeners('creds.update');
+        instance.socket.ev.removeAllListeners('messages.upsert');
         await instance.socket.logout().catch(() => {});
         instance.socket = null;
       }

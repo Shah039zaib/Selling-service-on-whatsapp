@@ -9,8 +9,6 @@ import {
   AIGenerationResult,
   AIConversationContext,
   AIMessage,
-  ServiceContext,
-  PackageContext,
 } from '../types/index.js';
 
 interface AIProvider {
@@ -33,7 +31,7 @@ class ClaudeProvider implements AIProvider {
   async generate(
     systemPrompt: string,
     messages: AIMessage[],
-    context: AIConversationContext
+    _context: AIConversationContext
   ): Promise<AIGenerationResult> {
     const startTime = Date.now();
 
@@ -77,7 +75,7 @@ class GeminiProvider implements AIProvider {
   async generate(
     systemPrompt: string,
     messages: AIMessage[],
-    context: AIConversationContext
+    _context: AIConversationContext
   ): Promise<AIGenerationResult> {
     const startTime = Date.now();
 
@@ -125,7 +123,7 @@ class GroqProvider implements AIProvider {
   async generate(
     systemPrompt: string,
     messages: AIMessage[],
-    context: AIConversationContext
+    _context: AIConversationContext
   ): Promise<AIGenerationResult> {
     const startTime = Date.now();
 
@@ -169,7 +167,7 @@ class CohereProvider implements AIProvider {
   async generate(
     systemPrompt: string,
     messages: AIMessage[],
-    context: AIConversationContext
+    _context: AIConversationContext
   ): Promise<AIGenerationResult> {
     const startTime = Date.now();
 
@@ -200,7 +198,10 @@ class CohereProvider implements AIProvider {
       throw new Error(`Cohere API error: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const data = await response.json() as {
+      text?: string;
+      meta?: { tokens?: { input_tokens?: number; output_tokens?: number } };
+    };
 
     return {
       content: data.text || '',

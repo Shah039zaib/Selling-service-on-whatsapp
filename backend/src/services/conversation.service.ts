@@ -11,9 +11,8 @@ import {
   ConversationIntent,
   OrderStatus,
   MessageType,
-  PaymentMethod,
 } from '../types/index.js';
-import { generateOrderNumber, detectLanguage, extractPhoneNumber } from '../utils/helpers.js';
+import { generateOrderNumber, detectLanguage } from '../utils/helpers.js';
 import { WAMessage } from 'baileys';
 
 export class ConversationService {

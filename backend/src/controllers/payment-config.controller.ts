@@ -16,7 +16,7 @@ export const createPaymentConfigSchema = z.object({
 export const updatePaymentConfigSchema = createPaymentConfigSchema.omit({ method: true }).partial();
 
 export const getPaymentConfigs = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const configs = await prisma.paymentConfig.findMany({
@@ -192,7 +192,7 @@ export const deletePaymentConfig = asyncHandler(async (
 });
 
 export const getActivePaymentMethods = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const configs = await prisma.paymentConfig.findMany({

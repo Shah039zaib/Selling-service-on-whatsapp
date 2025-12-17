@@ -22,7 +22,7 @@ export const sendMessageSchema = z.object({
 });
 
 export const getAccounts = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const accounts = await prisma.whatsAppAccount.findMany({
@@ -52,7 +52,7 @@ export const getAccount = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const account = await prisma.whatsAppAccount.findUnique({
     where: { id },
@@ -129,7 +129,7 @@ export const updateAccount = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const data = req.body as z.infer<typeof updateAccountSchema>;
 
   const existing = await prisma.whatsAppAccount.findUnique({
@@ -182,7 +182,7 @@ export const deleteAccount = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const existing = await prisma.whatsAppAccount.findUnique({
     where: { id },
@@ -226,7 +226,7 @@ export const connectAccount = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const account = await prisma.whatsAppAccount.findUnique({
     where: { id },
@@ -273,7 +273,7 @@ export const disconnectAccount = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const account = await prisma.whatsAppAccount.findUnique({
     where: { id },
@@ -312,7 +312,7 @@ export const getAccountQR = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   const account = await prisma.whatsAppAccount.findUnique({
     where: { id },
@@ -340,7 +340,7 @@ export const sendMessage = asyncHandler(async (
   req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { customerId, content } = req.body as z.infer<typeof sendMessageSchema>;
 
   const account = await prisma.whatsAppAccount.findUnique({
@@ -372,7 +372,7 @@ export const sendMessage = asyncHandler(async (
 });
 
 export const getActiveAccounts = asyncHandler(async (
-  req: AuthenticatedRequest,
+  _req: AuthenticatedRequest,
   res: Response<APIResponse>
 ): Promise<void> => {
   const activeAccountIds = whatsappService.getActiveAccounts();
